@@ -5,30 +5,46 @@ using UnityEngine;
 
 namespace Assets.Scripts {
     public class BoardManager : MonoBehaviour {
+        private GameObject _selected;
+        public Canvas UI;
+        public GameObject UI_ally;
+        public GameObject UI_selected;
 
 
-
-
-
+        public void GetColRow(int BlockID) {
+            int col = BlockID / _mapWidth;
+            //int
+        }
 
         public string HasUnit(int col,int row) {
             return _map[col,row].GetComponent<BlockData>().unitz;
         }
 
-        public void MoveUnit(int fromBlockID, int toBlockID) {
-            //_map[fromBlockID].GetComponent<BlockData>().unitz = "none";
-            //_map[toBlockID].GetComponent<BlockData>().unitz = "ally";
+        public void MoveUnit() {
+            _map[0, 0].GetComponent<BlockData>().thisUnit = _selected.GetComponent<BlockData>().thisUnit;
+            _selected.GetComponent<BlockData>().unitz = "none";
+            _map[0, 0].GetComponent<BlockData>().unitz = "ally";
+            _map[0, 0].GetComponent<BlockData>().thisUnit.transform.position = new Vector3(_map[0, 0].transform.position.x, _map[0, 0].transform.position.y + 2.5f, _map[0, 0].transform.position.z);
         }
 
-        public void isSelected(int BlockID) {
+        public void Selected(int x, int y) {
+            _selected=_map[x, y];
+            UI_ally.SetActive(true);
+            MoveUnit();
             //Debug.Log(_map[BlockID].GetComponent<BlockData>().isSelected);
         }
 
 
         public void FindPath() { }
 
-        public void MovementRange(int column, int row, int range) {
+        //public
+
+        public void findCircRange(int column, int row, int range) {
+            //UI.GetComponentInChildren<AllyUnitMenu>
             int rangeDec = range+1;
+
+            Selected(column, row);
+
             for (int x = 1; x < range+1; x++) {
                 rangeDec--;
                 if (column - x > -1) {//left
@@ -66,29 +82,6 @@ namespace Assets.Scripts {
 
 
                 }
-                /*
-                if (column - i > -1) {//left
-                    _map[column - i, row].GetComponent<BlockData>().isMovable();
-                }
-
-                if (column + i < _mapWidth) {//right
-                    _map[column + i, row].GetComponent<BlockData>().isMovable();
-                }
-                if (row - i > -1) {//down
-                    _map[column, row - i].GetComponent<BlockData>().isMovable();
-                }
-                if (row + i < _mapWidth) {//up
-                    _map[column, row + i].GetComponent<BlockData>().isMovable();
-                }
-                */
-                //if (column * _mapHeight + row - i > -1 && column * _mapHeight + row - i < _map.Length) {//down
-                //_map[column * _mapHeight + row - i].GetComponent<BlockData>().isMovable();
-                //}
-
-                //if (column * _mapHeight + row + i > -1 && column * _mapHeight + row + i < _map.Length) {//up
-                //_map[column * _mapHeight + row + i].GetComponent<BlockData>().isMovable();
-                //}
-
             }
         }
 
@@ -128,9 +121,14 @@ namespace Assets.Scripts {
 
 
         void Start() {
-            //
+            SetUI();
             LoadXML();
             CreateMap();
+        }
+
+        private void SetUI() {
+            UI_ally.SetActive(false);
+            UI_selected.SetActive(false);
         }
 
         public void LoadXML() {

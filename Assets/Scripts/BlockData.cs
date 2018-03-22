@@ -13,6 +13,7 @@ public class BlockData : MonoBehaviour {
     //[XmlAttribute("name")]
     public GameObject Map;
     public GameObject Unit;
+    public GameObject thisUnit;
     private BoardManager _boardManager;
     public int column;
     public int row;
@@ -41,13 +42,13 @@ public class BlockData : MonoBehaviour {
 
         switch (_boardManager.HasUnit(column,row)) {
             case "none":
-                Debug.Log("Nothing here");
-                _boardManager.MoveUnit(2,0);
+                Debug.Log("Nothing here--MOVE UNT");
+                _boardManager.MoveUnit();
                 break;
             case "ally":
                 Debug.Log("Where to Move unit?!?!?!");
                 isSelected = true;
-                _boardManager.MovementRange(column,row,5);
+                _boardManager.findCircRange(column,row,5);
                 break;
             case "enemy":
                 Debug.Log("Taliban!");
@@ -126,7 +127,7 @@ public class BlockData : MonoBehaviour {
         SetTexture();
         //transform.position.x = h;
         if (unitz=="ally") {
-            GameObject thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y+2.5f, transform.position.z), Quaternion.identity, transform);
+            thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y+2.5f, transform.position.z), Quaternion.identity, transform);
         }
     }
 

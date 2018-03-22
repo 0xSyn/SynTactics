@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynTactics", "SynTactics.csproj", "{4F0BA9CA-FFDD-9581-B86A-F40F6650ED98}"
 EndProject
 Global
