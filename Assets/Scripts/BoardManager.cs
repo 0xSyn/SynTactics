@@ -11,21 +11,86 @@ namespace Assets.Scripts {
 
 
 
-        public string HasUnit(int blockID) {
-            return _map[blockID].GetComponent<BlockData>().unitz;
+        public string HasUnit(int col,int row) {
+            return _map[col,row].GetComponent<BlockData>().unitz;
         }
 
         public void MoveUnit(int fromBlockID, int toBlockID) {
-            _map[fromBlockID].GetComponent<BlockData>().unitz = "none";
-            _map[toBlockID].GetComponent<BlockData>().unitz = "ally";
+            //_map[fromBlockID].GetComponent<BlockData>().unitz = "none";
+            //_map[toBlockID].GetComponent<BlockData>().unitz = "ally";
         }
 
         public void isSelected(int BlockID) {
-            Debug.Log(_map[BlockID].GetComponent<BlockData>().isSelected);
+            //Debug.Log(_map[BlockID].GetComponent<BlockData>().isSelected);
         }
 
 
+        public void FindPath() { }
 
+        public void MovementRange(int column, int row, int range) {
+            int rangeDec = range+1;
+            for (int x = 1; x < range+1; x++) {
+                rangeDec--;
+                if (column - x > -1) {//left
+                    _map[column - x, row].GetComponent<BlockData>().setMovable();
+                }
+
+                if (column + x < _mapWidth) {//right
+                    _map[column + x, row].GetComponent<BlockData>().setMovable();
+                }
+                if (row - x > -1) {//down
+                    _map[column, row - x].GetComponent<BlockData>().setMovable();
+                }
+                if (row + x < _mapWidth) {//up
+                    _map[column, row + x].GetComponent<BlockData>().setMovable();
+                }
+
+                for (int y = 1; y < rangeDec; y++) {
+                    if (column + x < _mapWidth && row + y < _mapWidth) { //up right
+                        _map[column + x, row + y].GetComponent<BlockData>().setMovable();
+                    }
+
+                    if (column + x < _mapWidth && row - y > -1) {//down right
+                        _map[column + x, row - y].GetComponent<BlockData>().setMovable();
+                    }
+                    if (column - x > -1 && row + y < _mapWidth) { //up left
+                        _map[column - x, row + y].GetComponent<BlockData>().setMovable();
+                    }
+
+                    if (column - x > -1 && row - y > -1) {//down left
+                        _map[column - x, row - y].GetComponent<BlockData>().setMovable();
+                    }
+
+
+
+
+
+                }
+                /*
+                if (column - i > -1) {//left
+                    _map[column - i, row].GetComponent<BlockData>().isMovable();
+                }
+
+                if (column + i < _mapWidth) {//right
+                    _map[column + i, row].GetComponent<BlockData>().isMovable();
+                }
+                if (row - i > -1) {//down
+                    _map[column, row - i].GetComponent<BlockData>().isMovable();
+                }
+                if (row + i < _mapWidth) {//up
+                    _map[column, row + i].GetComponent<BlockData>().isMovable();
+                }
+                */
+                //if (column * _mapHeight + row - i > -1 && column * _mapHeight + row - i < _map.Length) {//down
+                //_map[column * _mapHeight + row - i].GetComponent<BlockData>().isMovable();
+                //}
+
+                //if (column * _mapHeight + row + i > -1 && column * _mapHeight + row + i < _map.Length) {//up
+                //_map[column * _mapHeight + row + i].GetComponent<BlockData>().isMovable();
+                //}
+
+            }
+        }
 
 
 
@@ -53,7 +118,7 @@ namespace Assets.Scripts {
 
 
         public GameObject Block;
-        private readonly GameObject[] _map = new GameObject[400];
+        private readonly GameObject[,] _map = new GameObject[20,20];
         private int _mapWidth;
         private int _mapHeight;
         private XDocument _xmlDoc; //create Xdocument. Will be used later to read XML file IEnumerable<XElement> items; //Create an Ienumerable list. Will be used to store XML Items. 
@@ -107,9 +172,9 @@ namespace Assets.Scripts {
                 for (int row = 0; row < _mapHeight; row++) {
 
                     int blockID = (col * _mapHeight) + row;
-                    _map[blockID] = Instantiate(Block, new Vector3(col, float.Parse(_xmlMapData[blockID, 2]), row), Quaternion.identity, transform);
+                    _map[col,row] = Instantiate(Block, new Vector3(col, float.Parse(_xmlMapData[blockID, 2]), row), Quaternion.identity, transform);
 
-                    _map[blockID].GetComponent<BlockData>().Initialize(
+                    _map[col,row].GetComponent<BlockData>().Initialize(
                         int.Parse(_xmlMapData[blockID, 0]),//ID
                         _xmlMapData[blockID, 1],//Geography
                         float.Parse(_xmlMapData[blockID, 2]),//Height
@@ -117,10 +182,12 @@ namespace Assets.Scripts {
                         _xmlMapData[blockID, 25]//unit
                     );
 
-                    _map[blockID].name = "blk_" + col + "_" + row;
-                    _map[blockID].transform.SetParent(transform);
-                    _map[blockID].isStatic = true;
-      
+                    _map[col, row].name = "blk_" + col + "_" + row;
+                    _map[col, row].transform.SetParent(transform);
+                    _map[col, row].isStatic = true;
+                    _map[col, row].GetComponent<BlockData>().column = col;
+                    _map[col, row].GetComponent<BlockData>().row = row;
+
 
                 }
             }

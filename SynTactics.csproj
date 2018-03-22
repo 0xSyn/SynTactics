@@ -296,6 +296,7 @@
     <Compile Include="Assets\Scripts\hex\MouseManager.cs" />
     <Compile Include="Assets\Scripts\hex\PlayerController.cs" />
     <Compile Include="Assets\Scripts\UnitData.cs" />
+    <Compile Include="Assets\Scripts\UnitMovement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Maps\map0.xml" />

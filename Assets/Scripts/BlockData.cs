@@ -14,7 +14,8 @@ public class BlockData : MonoBehaviour {
     public GameObject Map;
     public GameObject Unit;
     private BoardManager _boardManager;
-    
+    public int column;
+    public int row;
     public float height = 20;
     public string geography;
     public string desc;
@@ -26,7 +27,7 @@ public class BlockData : MonoBehaviour {
     private bool isHovered = false;
     public bool isSelected = false;
     public string unitz;
-
+    public bool movableArea = false;
 
     void Start() {
         transform.GetChild(2).GetComponent<Renderer>().enabled = false;
@@ -38,7 +39,7 @@ public class BlockData : MonoBehaviour {
     void OnMouseDown() {
         Debug.Log("Clicked: " + name);
 
-        switch (_boardManager.HasUnit(blockID)) {
+        switch (_boardManager.HasUnit(column,row)) {
             case "none":
                 Debug.Log("Nothing here");
                 _boardManager.MoveUnit(2,0);
@@ -46,7 +47,7 @@ public class BlockData : MonoBehaviour {
             case "ally":
                 Debug.Log("Where to Move unit?!?!?!");
                 isSelected = true;
-                _boardManager.isSelected(blockID);
+                _boardManager.MovementRange(column,row,5);
                 break;
             case "enemy":
                 Debug.Log("Taliban!");
@@ -61,9 +62,13 @@ public class BlockData : MonoBehaviour {
         if (!isHovered) {
             isHovered = true;
             transform.GetChild(2).GetComponent<Renderer>().enabled = true;
-            switch (_boardManager.HasUnit(blockID)) {
+            switch (_boardManager.HasUnit(column,row)) {
                 case "none":
-                    transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[0];
+                    if (!movableArea) {
+                        //Debug.Log("FUCK EVERYTHING");
+                        transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[0];
+                    }
+
                     break;
                 case "ally":
                     transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[1];
@@ -78,9 +83,17 @@ public class BlockData : MonoBehaviour {
         }
     }
 
+    public void setMovable() {
+        transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[2];
+        transform.GetChild(2).GetComponent<Renderer>().enabled = true;
+        movableArea = true;
+    }
+
     void OnMouseExit() {
-        isHovered = false;
-        transform.GetChild(2).GetComponent<Renderer>().enabled = false;
+        if (!movableArea) {
+            isHovered = false;
+            transform.GetChild(2).GetComponent<Renderer>().enabled = false;
+        }
     }
 
 
