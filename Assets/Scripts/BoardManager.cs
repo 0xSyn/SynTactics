@@ -5,10 +5,65 @@ using UnityEngine;
 
 namespace Assets.Scripts {
     public class BoardManager : MonoBehaviour {
-        private GameObject _selected;
+        private GameObject _blockSelected;
+        private GameObject _blockSelected2;
+        private GameObject _blockHovered;
+        private GameObject[] blockSubset=new GameObject[100];
+        private int blockSubset_pointer;
         public Canvas UI;
         public GameObject UI_ally;
         public GameObject UI_selected;
+        private bool _movementMode = false;
+
+
+
+        void Update() {
+            if (_blockHovered != null && _blockSelected!=null) {
+                Debug.Log("DRAWING");
+                Debug.DrawLine(
+                    new Vector3(
+                        _blockSelected.transform.position.x,
+                        _blockSelected.transform.position.y + 3,
+                        _blockSelected.transform.position.z), 
+                    new Vector3(
+                        _blockHovered.transform.position.x,
+                        _blockHovered.transform.position.y + 3,
+                        _blockHovered.transform.position.z),
+                    Color.blue
+                );
+
+
+                DrawLine(new Vector3(
+                    _blockSelected.transform.position.x,
+                    _blockSelected.transform.position.y + 3,
+                    _blockSelected.transform.position.z),
+                    new Vector3(
+                        _blockHovered.transform.position.x,
+                        _blockHovered.transform.position.y + 3,
+                        _blockHovered.transform.position.z),
+                    Color.blue);
+            }
+        }
+
+
+
+        void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f) {
+            GameObject myLine = new GameObject();
+            myLine.transform.position = start;
+            myLine.AddComponent<LineRenderer>();
+            LineRenderer lr = myLine.GetComponent<LineRenderer>();
+            //lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+            lr.SetColors(color, color);
+            lr.SetWidth(0.1f, 0.1f);
+            lr.SetPosition(0, start);
+            lr.SetPosition(1, end);
+            GameObject.Destroy(myLine, duration);
+        }
+
+
+
+
+
 
 
         public void GetColRow(int BlockID) {
@@ -20,61 +75,115 @@ namespace Assets.Scripts {
             return _map[col,row].GetComponent<BlockData>().unitz;
         }
 
-        public void MoveUnit() {
-            _map[0, 0].GetComponent<BlockData>().thisUnit = _selected.GetComponent<BlockData>().thisUnit;
-            _selected.GetComponent<BlockData>().unitz = "none";
-            _map[0, 0].GetComponent<BlockData>().unitz = "ally";
-            _map[0, 0].GetComponent<BlockData>().thisUnit.transform.position = new Vector3(_map[0, 0].transform.position.x, _map[0, 0].transform.position.y + 2.5f, _map[0, 0].transform.position.z);
+        public void MoveUnit(int id) {
+            bool blockFound = false;
+            if (_movementMode) {
+                for(int i=0;i< blockSubset_pointer; i++){
+                    if (blockSubset[i].GetComponent<BlockData>().blockID == id) {
+                        blockFound = true;
+                        _blockSelected2 = blockSubset[i];
+                        break;
+                    }
+                }
+
+                if (blockFound) {
+                    Debug.Log("MOVE MOTHER FUCKER");
+                    _blockSelected2.GetComponent<BlockData>().thisUnit = _blockSelected.GetComponent<BlockData>().thisUnit;
+                    _blockSelected.GetComponent<BlockData>().unitz = "none";
+                    _blockSelected2.GetComponent<BlockData>().unitz = "ally";
+                    _blockSelected2.GetComponent<BlockData>().thisUnit.transform.position = new Vector3(
+                        _blockSelected2.transform.position.x,
+                        _blockSelected2.transform.position.y + 2.5f,
+                        _blockSelected2.transform.position.z
+                    );
+                    ClearBlockSubset();
+                }
+
+                else {
+                    Debug.Log("Out Of Movement Range");
+                }
+            }
         }
+
+        public void SetHovered(int col, int row) {
+            _blockHovered = _map[col, row];
+        }
+
+        private void ClearBlockSubset() {
+            for (int i = 0; i < blockSubset_pointer; i++) {
+                blockSubset[i].GetComponent<BlockData>().setMovable(false);
+                blockSubset[i] = null;
+                _blockSelected = null;
+                _blockSelected2 = null;
+                UI_ally.SetActive(false);
+            }
+            blockSubset_pointer = 0;
+        }
+
 
         public void Selected(int x, int y) {
-            _selected=_map[x, y];
+            _blockSelected=_map[x, y];
             UI_ally.SetActive(true);
-            MoveUnit();
-            //Debug.Log(_map[BlockID].GetComponent<BlockData>().isSelected);
         }
 
+        public bool isMovementModeActive() {
+            return _movementMode;
+        }
+
+        public void Mode_Movement() {
+            if (_blockSelected != null) {
+                _movementMode = true;
+                findCircRange();
+            }
+        }
 
         public void FindPath() { }
 
-        //public
-
-        public void findCircRange(int column, int row, int range) {
-            //UI.GetComponentInChildren<AllyUnitMenu>
+        public void findCircRange() {
+            blockSubset_pointer = 0;
+            int col=_blockSelected.GetComponent<BlockData>().col;
+            int row = _blockSelected.GetComponent<BlockData>().row;
+            int range = 5;
             int rangeDec = range+1;
-
-            Selected(column, row);
 
             for (int x = 1; x < range+1; x++) {
                 rangeDec--;
-                if (column - x > -1) {//left
-                    _map[column - x, row].GetComponent<BlockData>().setMovable();
+                if (col - x > -1) {//left
+                    blockSubset[blockSubset_pointer++] = _map[col - x, row];
+                    _map[col - x, row].GetComponent<BlockData>().setMovable(true);
                 }
 
-                if (column + x < _mapWidth) {//right
-                    _map[column + x, row].GetComponent<BlockData>().setMovable();
+                if (col + x < _mapWidth) {//right
+                    blockSubset[blockSubset_pointer++] = _map[col + x, row];
+                    _map[col + x, row].GetComponent<BlockData>().setMovable(true);
                 }
                 if (row - x > -1) {//down
-                    _map[column, row - x].GetComponent<BlockData>().setMovable();
+                    blockSubset[blockSubset_pointer++] = _map[col, row - x];
+                    _map[col, row - x].GetComponent<BlockData>().setMovable(true);
                 }
                 if (row + x < _mapWidth) {//up
-                    _map[column, row + x].GetComponent<BlockData>().setMovable();
+                    blockSubset[blockSubset_pointer++] = _map[col, row + x];
+                    _map[col, row + x].GetComponent<BlockData>().setMovable(true);
                 }
 
                 for (int y = 1; y < rangeDec; y++) {
-                    if (column + x < _mapWidth && row + y < _mapWidth) { //up right
-                        _map[column + x, row + y].GetComponent<BlockData>().setMovable();
+                    if (col + x < _mapWidth && row + y < _mapWidth) { //up right
+                        blockSubset[blockSubset_pointer++] = _map[col + x, row + y];
+                        _map[col + x, row + y].GetComponent<BlockData>().setMovable(true);
                     }
 
-                    if (column + x < _mapWidth && row - y > -1) {//down right
-                        _map[column + x, row - y].GetComponent<BlockData>().setMovable();
+                    if (col + x < _mapWidth && row - y > -1) {//down right
+                        blockSubset[blockSubset_pointer++] = _map[col + x, row - y];
+                        _map[col + x, row - y].GetComponent<BlockData>().setMovable(true);
                     }
-                    if (column - x > -1 && row + y < _mapWidth) { //up left
-                        _map[column - x, row + y].GetComponent<BlockData>().setMovable();
+                    if (col - x > -1 && row + y < _mapWidth) { //up left
+                        blockSubset[blockSubset_pointer++] = _map[col - x, row + y];
+                        _map[col - x, row + y].GetComponent<BlockData>().setMovable(true);
                     }
 
-                    if (column - x > -1 && row - y > -1) {//down left
-                        _map[column - x, row - y].GetComponent<BlockData>().setMovable();
+                    if (col - x > -1 && row - y > -1) {//down left
+                        blockSubset[blockSubset_pointer++] = _map[col - x, row - y];
+                        _map[col - x, row - y].GetComponent<BlockData>().setMovable(true);
                     }
 
 
@@ -83,6 +192,7 @@ namespace Assets.Scripts {
 
                 }
             }
+            Debug.Log(blockSubset_pointer);
         }
 
 
@@ -183,7 +293,7 @@ namespace Assets.Scripts {
                     _map[col, row].name = "blk_" + col + "_" + row;
                     _map[col, row].transform.SetParent(transform);
                     _map[col, row].isStatic = true;
-                    _map[col, row].GetComponent<BlockData>().column = col;
+                    _map[col, row].GetComponent<BlockData>().col = col;
                     _map[col, row].GetComponent<BlockData>().row = row;
 
 

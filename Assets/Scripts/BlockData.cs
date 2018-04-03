@@ -15,14 +15,14 @@ public class BlockData : MonoBehaviour {
     public GameObject Unit;
     public GameObject thisUnit;
     private BoardManager _boardManager;
-    public int column;
+    public int col;
     public int row;
     public float height = 20;
     public string geography;
     public string desc;
     private int mat_tile;
     private int mat_base;
-    private int blockID;
+    public int blockID;
     public Material[] mats;
     public Material[] mats_selector;
     private bool isHovered = false;
@@ -40,15 +40,23 @@ public class BlockData : MonoBehaviour {
     void OnMouseDown() {
         Debug.Log("Clicked: " + name);
 
-        switch (_boardManager.HasUnit(column,row)) {
+        switch (_boardManager.HasUnit(col,row)) {
             case "none":
-                Debug.Log("Nothing here--MOVE UNT");
-                _boardManager.MoveUnit();
+                if (_boardManager.isMovementModeActive()) {
+                    _boardManager.MoveUnit(blockID);
+                    Debug.Log("Nothing here--MOVE UNT");
+                }
+                else {
+                    Debug.Log("Nothing here");
+                }
+
+                //_boardManager.MoveUnit();
                 break;
             case "ally":
                 Debug.Log("Where to Move unit?!?!?!");
                 isSelected = true;
-                _boardManager.findCircRange(column,row,5);
+                _boardManager.Selected(col,row);
+                //_boardManager.findCircRange(col,row,5);
                 break;
             case "enemy":
                 Debug.Log("Taliban!");
@@ -62,11 +70,16 @@ public class BlockData : MonoBehaviour {
     void OnMouseOver() {
         if (!isHovered) {
             isHovered = true;
+            
             transform.GetChild(2).GetComponent<Renderer>().enabled = true;
-            switch (_boardManager.HasUnit(column,row)) {
+            switch (_boardManager.HasUnit(col,row)) {
                 case "none":
-                    if (!movableArea) {
-                        //Debug.Log("FUCK EVERYTHING");
+                    if (movableArea) {
+                        _boardManager.SetHovered(col, row);
+                        transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[1];
+
+                    }
+                    else {
                         transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[0];
                     }
 
@@ -84,15 +97,27 @@ public class BlockData : MonoBehaviour {
         }
     }
 
-    public void setMovable() {
-        transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[2];
-        transform.GetChild(2).GetComponent<Renderer>().enabled = true;
-        movableArea = true;
+    public void setMovable(bool moveable) {
+        if (moveable) {
+            transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[2];
+            transform.GetChild(2).GetComponent<Renderer>().enabled = true;
+            movableArea = true;
+        }
+        else {
+            transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[1];
+            transform.GetChild(2).GetComponent<Renderer>().enabled = false;
+            movableArea = false;
+        }
     }
 
     void OnMouseExit() {
-        if (!movableArea) {
-            isHovered = false;
+        isHovered = false;
+
+        if (movableArea) {
+            transform.GetChild(2).GetComponent<Renderer>().material = mats_selector[2];
+        }
+        else {
+            
             transform.GetChild(2).GetComponent<Renderer>().enabled = false;
         }
     }
