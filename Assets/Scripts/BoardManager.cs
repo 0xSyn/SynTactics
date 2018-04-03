@@ -5,33 +5,27 @@ using UnityEngine;
 
 namespace Assets.Scripts {
     public class BoardManager : MonoBehaviour {
+        private UnitPath _path;
         private GameObject _blockSelected;
         private GameObject _blockSelected2;
         private GameObject _blockHovered;
         private GameObject[] blockSubset=new GameObject[100];
+        private byte[] buildPath = new byte[100];
         private int blockSubset_pointer;
         public Canvas UI;
         public GameObject UI_ally;
         public GameObject UI_selected;
         private bool _movementMode = false;
 
-
+        void Start() {
+            SetUI();
+            LoadXML();
+            CreateMap();
+            _path = GetComponent<UnitPath>();
+        }
 
         void Update() {
-            if (_blockHovered != null && _blockSelected!=null) {
-                Debug.Log("DRAWING");
-                Debug.DrawLine(
-                    new Vector3(
-                        _blockSelected.transform.position.x,
-                        _blockSelected.transform.position.y + 3,
-                        _blockSelected.transform.position.z), 
-                    new Vector3(
-                        _blockHovered.transform.position.x,
-                        _blockHovered.transform.position.y + 3,
-                        _blockHovered.transform.position.z),
-                    Color.blue
-                );
-
+            if (_blockHovered != null && _blockSelected!=null && false) {
 
                 DrawLine(new Vector3(
                     _blockSelected.transform.position.x,
@@ -45,6 +39,15 @@ namespace Assets.Scripts {
             }
         }
 
+        public Vector3 nodePos(int nodeIndex) {
+            int col = GetCol(nodeIndex);
+            int row = GetRow(nodeIndex);
+            Debug.Log("COL: "+col+" ROW: "+row);
+            return new Vector3(
+                    _map[col, row].transform.position.x,
+                    _map[col, row].transform.position.y + 3,
+                    _map[col, row].transform.position.z);
+        }
 
 
         void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f) {
@@ -66,10 +69,8 @@ namespace Assets.Scripts {
 
 
 
-        public void GetColRow(int BlockID) {
-            int col = BlockID / _mapWidth;
-            //int
-        }
+        public int GetCol(int BlockID) { return BlockID / _mapWidth;}
+        public int GetRow(int BlockID) { return BlockID - (BlockID / _mapWidth); }
 
         public string HasUnit(int col,int row) {
             return _map[col,row].GetComponent<BlockData>().unitz;
@@ -82,11 +83,13 @@ namespace Assets.Scripts {
                     if (blockSubset[i].GetComponent<BlockData>().blockID == id) {
                         blockFound = true;
                         _blockSelected2 = blockSubset[i];
+
                         break;
                     }
                 }
-
+                
                 if (blockFound) {
+                    /*
                     Debug.Log("MOVE MOTHER FUCKER");
                     _blockSelected2.GetComponent<BlockData>().thisUnit = _blockSelected.GetComponent<BlockData>().thisUnit;
                     _blockSelected.GetComponent<BlockData>().unitz = "none";
@@ -97,6 +100,9 @@ namespace Assets.Scripts {
                         _blockSelected2.transform.position.z
                     );
                     ClearBlockSubset();
+                    */
+                    Debug.Log("ID: " + _blockSelected2.GetComponent<BlockData>().blockID);
+                    _path.BuildPath(_blockSelected2.GetComponent<BlockData>().blockID);
                 }
 
                 else {
@@ -230,11 +236,6 @@ namespace Assets.Scripts {
 
 
 
-        void Start() {
-            SetUI();
-            LoadXML();
-            CreateMap();
-        }
 
         private void SetUI() {
             UI_ally.SetActive(false);
