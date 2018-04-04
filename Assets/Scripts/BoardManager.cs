@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace Assets.Scripts {
     public class BoardManager : MonoBehaviour {
+
+        public GameObject[,] _map = new GameObject[20, 20];
+        public int _mapWidth;
+        public int _mapHeight;
+
         private UnitPath _path;
         private GameObject _blockSelected;
         private GameObject _blockSelected2;
@@ -18,11 +23,12 @@ namespace Assets.Scripts {
         private bool _movementMode = false;
 
         void Start() {
-            SetUI();
-            LoadXML();
-            CreateMap();
             _path = GetComponent<UnitPath>();
         }
+
+
+        public int SetMapHeight(int height) {return _mapHeight = height;}
+        public int SetMapWidth(int width) {return _mapWidth = width;}
 
         void Update() {
             if (_blockHovered != null && _blockSelected!=null && false) {
@@ -39,15 +45,19 @@ namespace Assets.Scripts {
             }
         }
 
-        public Vector3 nodePos(int nodeIndex) {
-            int col = GetCol(nodeIndex);
-            int row = GetRow(nodeIndex);
-            Debug.Log("COL: "+col+" ROW: "+row);
-            return new Vector3(
-                    _map[col, row].transform.position.x,
-                    _map[col, row].transform.position.y + 3,
-                    _map[col, row].transform.position.z);
-        }
+
+        public int GetCol(int BlockID) { return BlockID /_mapWidth; }
+        public int GetRow(int BlockID) { return BlockID % _mapWidth; }
+
+        //public Vector3 nodePos(GameObject node) {
+            //int col = GetCol(nodeIndex);
+            //int row = GetRow(nodeIndex);
+            //Debug.Log("COL: "+col+" ROW: "+row);
+            //return new Vector3(
+                    //_map[node.col col, row].transform.position.x,
+                    //_map[col, row].transform.position.y + 3,
+                    //_map[col, row].transform.position.z);
+        //}
 
 
         void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f) {
@@ -69,42 +79,18 @@ namespace Assets.Scripts {
 
 
 
-        public int GetCol(int BlockID) { return BlockID / _mapWidth;}
-        public int GetRow(int BlockID) { return BlockID - (BlockID / _mapWidth); }
+        
 
         public string HasUnit(int col,int row) {
             return _map[col,row].GetComponent<BlockData>().unitz;
         }
 
         public void MoveUnit(int id) {
-            bool blockFound = false;
             if (_movementMode) {
-                for(int i=0;i< blockSubset_pointer; i++){
-                    if (blockSubset[i].GetComponent<BlockData>().blockID == id) {
-                        blockFound = true;
-                        _blockSelected2 = blockSubset[i];
-
-                        break;
-                    }
-                }
-                
-                if (blockFound) {
-                    /*
-                    Debug.Log("MOVE MOTHER FUCKER");
-                    _blockSelected2.GetComponent<BlockData>().thisUnit = _blockSelected.GetComponent<BlockData>().thisUnit;
-                    _blockSelected.GetComponent<BlockData>().unitz = "none";
-                    _blockSelected2.GetComponent<BlockData>().unitz = "ally";
-                    _blockSelected2.GetComponent<BlockData>().thisUnit.transform.position = new Vector3(
-                        _blockSelected2.transform.position.x,
-                        _blockSelected2.transform.position.y + 2.5f,
-                        _blockSelected2.transform.position.z
-                    );
-                    ClearBlockSubset();
-                    */
+                if (_blockSelected2=_path.scanSubset(id)) {
                     Debug.Log("ID: " + _blockSelected2.GetComponent<BlockData>().blockID);
-                    _path.BuildPath(_blockSelected2.GetComponent<BlockData>().blockID);
+                    _path.BuildPath(_blockSelected2);
                 }
-
                 else {
                     Debug.Log("Out Of Movement Range");
                 }
@@ -115,6 +101,29 @@ namespace Assets.Scripts {
             _blockHovered = _map[col, row];
         }
 
+
+
+
+        public void Selected(int x, int y) {
+            _blockSelected=_map[x, y];
+            UI_ally.SetActive(true);
+            _path.BuildPath(_blockSelected);
+        }
+
+        public bool isMovementModeActive() {
+            return _movementMode;
+        }
+
+        public void Mode_Movement() {
+            if (_blockSelected != null) {
+               
+                _movementMode = true;
+                //findCircRange();
+            }
+        }
+
+
+/*
         private void ClearBlockSubset() {
             for (int i = 0; i < blockSubset_pointer; i++) {
                 blockSubset[i].GetComponent<BlockData>().setMovable(false);
@@ -124,23 +133,6 @@ namespace Assets.Scripts {
                 UI_ally.SetActive(false);
             }
             blockSubset_pointer = 0;
-        }
-
-
-        public void Selected(int x, int y) {
-            _blockSelected=_map[x, y];
-            UI_ally.SetActive(true);
-        }
-
-        public bool isMovementModeActive() {
-            return _movementMode;
-        }
-
-        public void Mode_Movement() {
-            if (_blockSelected != null) {
-                _movementMode = true;
-                findCircRange();
-            }
         }
 
         public void FindPath() { }
@@ -202,107 +194,14 @@ namespace Assets.Scripts {
         }
 
 
+        public void CreateNode() { }
+
+
+
+    */
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-        /// <summary>
-        /// //////////////////////////////////////////////////////////////////////
-        /// 
-        ///  MAP CREATION
-        /// 
-        /// //////////////////////////////////////////////////////////////////////
-        /// </summary>
-
-
-
-        public GameObject Block;
-        private readonly GameObject[,] _map = new GameObject[20,20];
-        private int _mapWidth;
-        private int _mapHeight;
-        private XDocument _xmlDoc; //create Xdocument. Will be used later to read XML file IEnumerable<XElement> items; //Create an Ienumerable list. Will be used to store XML Items. 
-        private readonly string[,] _xmlMapData = new string[500, 50];
-
-
-
-
-
-        private void SetUI() {
-            UI_ally.SetActive(false);
-            UI_selected.SetActive(false);
-        }
-
-        public void LoadXML() {
-
-            _xmlDoc = XDocument.Load("Assets/Maps/Map0.xml");
-            var items = _xmlDoc.Descendants("Map0").Elements();
-            int blockID = -2;
-        
-            foreach (var item in items) {
-                if (blockID < 0) {
-                    if (blockID == -2) {
-                        _mapWidth = int.Parse(item.Value.Trim());
-                    }
-                    else if (blockID == -1) {
-                        _mapHeight = int.Parse(item.Value.Trim());
-                    }
-                }
-                else {
-                
-                    _xmlMapData[blockID,0] = blockID.ToString();
-                    _xmlMapData[blockID,1] = item.Element("GeoType").Value.Trim();
-                    _xmlMapData[blockID,2] = item.Element("Height").Value;
-                    _xmlMapData[blockID,3] = item.Element("Desc").Value;
-                    if (item.Element("Unit") != null) {
-                        Debug.Log(item.Element("Unit").Value);
-                        _xmlMapData[blockID, 25] = item.Element("Unit").Value;
-                    }
-                    else { _xmlMapData[blockID, 25] = "none"; }
-                }
-                blockID++;
-            }
-
-
-        }
-
-        private void CreateMap() {
-            Debug.Log("Create _map Start");
-            for (int col = 0; col < _mapWidth; col++) {
-                for (int row = 0; row < _mapHeight; row++) {
-
-                    int blockID = (col * _mapHeight) + row;
-                    _map[col,row] = Instantiate(Block, new Vector3(col, float.Parse(_xmlMapData[blockID, 2]), row), Quaternion.identity, transform);
-
-                    _map[col,row].GetComponent<BlockData>().Initialize(
-                        int.Parse(_xmlMapData[blockID, 0]),//ID
-                        _xmlMapData[blockID, 1],//Geography
-                        float.Parse(_xmlMapData[blockID, 2]),//Height
-                        _xmlMapData[blockID, 3],//Desc
-                        _xmlMapData[blockID, 25]//unit
-                    );
-
-                    _map[col, row].name = "blk_" + col + "_" + row;
-                    _map[col, row].transform.SetParent(transform);
-                    _map[col, row].isStatic = true;
-                    _map[col, row].GetComponent<BlockData>().col = col;
-                    _map[col, row].GetComponent<BlockData>().row = row;
-
-
-                }
-            }
-        
-            StaticBatchingUtility.Combine(this.gameObject);
-            Debug.Log("Create _map End");
-        }
     }
 }

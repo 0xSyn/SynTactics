@@ -55,6 +55,7 @@ public class BlockData : MonoBehaviour {
             case "ally":
                 Debug.Log("Where to Move unit?!?!?!");
                 isSelected = true;
+                //Unit.GetComponent<UnitData>.moveRange;
                 _boardManager.Selected(col,row);
                 //_boardManager.findCircRange(col,row,5);
                 break;

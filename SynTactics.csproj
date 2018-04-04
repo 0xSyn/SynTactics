@@ -288,6 +288,7 @@
     <Compile Include="Assets\Resources\Animations\PlayerAnim.cs" />
     <Compile Include="Assets\Scripts\BlockData.cs" />
     <Compile Include="Assets\Scripts\BlockLoad.cs" />
+    <Compile Include="Assets\Scripts\BoardLoader.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\hex\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\hex\Hex.cs" />
