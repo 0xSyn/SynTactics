@@ -5,9 +5,7 @@ using System.Xml.Linq;
 namespace Assets.Scripts {
     public class BoardLoader : MonoBehaviour {
         public GameObject Block;
-        private readonly GameObject[,] _map = new GameObject[20, 20];
         private BoardManager _boardManager;
-
         private int _mapWidth;
         private int _mapHeight;
         private XDocument _xmlDoc; //create Xdocument. Will be used later to read XML file IEnumerable<XElement> items; //Create an Ienumerable list. Will be used to store XML Items. 

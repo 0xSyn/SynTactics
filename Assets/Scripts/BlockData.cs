@@ -53,8 +53,9 @@ public class BlockData : MonoBehaviour {
                 //_boardManager.MoveUnit();
                 break;
             case "ally":
-                Debug.Log("Where to Move unit?!?!?!");
+                //Debug.Log("Where to Move unit?!?!?!");
                 isSelected = true;
+                //Debug.Log(" range "+thisUnit.GetComponent<UnitData>().GetMoveRange());
                 //Unit.GetComponent<UnitData>.moveRange;
                 _boardManager.Selected(col,row);
                 //_boardManager.findCircRange(col,row,5);
@@ -154,7 +155,9 @@ public class BlockData : MonoBehaviour {
         //transform.position.x = h;
         if (unitz=="ally") {
             thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y+2.5f, transform.position.z), Quaternion.identity, transform);
+            //Debug.Log(" range " + thisUnit.GetComponent<UnitData>().GetMoveRange());
         }
+        
     }
 
 

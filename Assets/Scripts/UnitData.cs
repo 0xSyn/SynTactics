@@ -8,10 +8,26 @@ public class UnitData : MonoBehaviour {
     private int lev;
     string job;
     private int MOVERANGE = 5;
-    public int moveRange = 5;
+    private int moveRange = 5;
+
+    void Start (){
+        TurnReset();
+    }
+
 
     public void TurnReset() {
+        Debug.Log("FUK "+moveRange);
         moveRange = MOVERANGE;
+    }
+    public int GetMoveRange() {
+        return moveRange;
+    }
+    public int GetMoveRangeTotal() {
+        return MOVERANGE;
+    }
+
+    public void SetMoveRange(int newRange) {
+        moveRange = newRange;
     }
 
     public void MoveRangeDec(int dist) {
