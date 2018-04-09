@@ -19,7 +19,7 @@ namespace Assets.Scripts {
             LoadXML();
             CreateMap();
             
-            //_path = GetComponent<UnitPath>();
+            //_path = GetComponent<BoardPathing>();
         }
 
 
@@ -52,7 +52,7 @@ namespace Assets.Scripts {
                     _xmlMapData[blockID, 2] = item.Element("Height").Value;
                     _xmlMapData[blockID, 3] = item.Element("Desc").Value;
                     if (item.Element("Unit") != null) {
-                        Debug.Log(item.Element("Unit").Value);
+                        //Debug.Log(item.Element("Unit").Value);
                         _xmlMapData[blockID, 25] = item.Element("Unit").Value;
                     }
                     else { _xmlMapData[blockID, 25] = "none"; }
@@ -71,7 +71,7 @@ namespace Assets.Scripts {
                     int blockID = (col * _mapHeight) + row;
                     _boardManager._map[col, row] = Instantiate(Block, new Vector3(col, float.Parse(_xmlMapData[blockID, 2]), row), Quaternion.identity, transform);
 
-                    _boardManager._map[col, row].GetComponent<BlockData>().Initialize(
+                    _boardManager._map[col, row].GetComponent<NodeData>().Initialize(
                         int.Parse(_xmlMapData[blockID, 0]),//ID
                         _xmlMapData[blockID, 1],//Geography
                         float.Parse(_xmlMapData[blockID, 2]),//Height
@@ -82,8 +82,8 @@ namespace Assets.Scripts {
                     _boardManager._map[col, row].name = "blk_" + col + "_" + row;
                     _boardManager._map[col, row].transform.SetParent(transform);
                     _boardManager._map[col, row].isStatic = true;
-                    _boardManager._map[col, row].GetComponent<BlockData>().col = col;
-                    _boardManager._map[col, row].GetComponent<BlockData>().row = row;
+                    _boardManager._map[col, row].GetComponent<NodeData>().col = col;
+                    _boardManager._map[col, row].GetComponent<NodeData>().row = row;
 
 
                 }

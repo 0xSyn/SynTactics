@@ -1,8 +1,6 @@
 ﻿using System.Xml.Linq;
 using UnityEngine;
 
-//Needed for XDocument
-
 namespace Assets.Scripts {
     public class BoardManager : MonoBehaviour {
 
@@ -10,7 +8,7 @@ namespace Assets.Scripts {
         public int _mapWidth;
         public int _mapHeight;
 
-        private UnitPath _path;
+        private BoardPathing _path;
         private GameObject _blockSelected;
         private GameObject _blockSelected2;
         private GameObject _blockHovered;
@@ -22,7 +20,32 @@ namespace Assets.Scripts {
         private bool _movementMode = false;
 
         void Start() {
-            _path = GetComponent<UnitPath>();
+            _path = GetComponent<BoardPathing>();
+            UI_ally.SetActive(false);
+            UI_selected.SetActive(false);
+
+        }
+
+        void Update() {
+            if(Input.GetMouseButtonDown(1)){
+                //Debug.Log("RMB");
+                if (_path.PathSize() > 1) {
+                    _path.RemovePartialPath(1);
+                }
+                else {
+                    _movementMode = false;
+                    _blockSelected = null;
+                    UI_ally.SetActive(false);
+                    _path.ClearBlockSubset();
+                }
+            }
+            if (Input.GetMouseButtonDown(2)) {
+                //Debug.Log("MMB");
+            }
+            if (Input.GetKey(KeyCode.U)) {
+                _path.Move();
+            }
+
         }
 
 
@@ -33,31 +56,32 @@ namespace Assets.Scripts {
 
 
 
-
-
-
-
-        
-
-        public string HasUnit(int col,int row) {
-            return _map[col,row].GetComponent<BlockData>().unitz;
+        public void MoveUnit() {
+            _blockHovered = null;
+            _blockSelected = null;
+            _blockSelected2 = null;
+            _movementMode = false;
+            _path.Move();
+            UI_ally.SetActive(false);
         }
 
-        public void MoveUnit(int id) {
+
+
+        public void AddToPath(int id) {
             if (_movementMode) {
-                if (_blockSelected2=_path.scanSubset(id)) {
-                    Debug.Log("ID: " + _blockSelected2.GetComponent<BlockData>().blockID);
+                if (_blockSelected2=_path.IsNodeInSubset(id)) {
+                    //Debug.Log("ID: " + _blockSelected2.GetComponent<NodeData>().blockID);
                     _path.BuildPath(_blockSelected2);
                 }
                 else {
-                    Debug.Log("Out Of Movement Range");
+                    //Debug.Log("Out Of Movement Range");
                 }
             }
         }
 
-        public void SetHovered(int col, int row) {
-            _blockHovered = _map[col, row];
-        }
+        //public void SetHovered(int col, int row) {
+        //    _blockHovered = _map[col, row];
+        //}
 
 
 
@@ -72,13 +96,12 @@ namespace Assets.Scripts {
             return _movementMode;
         }
 
-        public void Mode_Movement() {
-            if (_blockSelected != null) {
-                
+        public void BTN_Move() {
+            if (_blockSelected != null) {   
                 _movementMode = true;
                 _path.BuildPath(_blockSelected);
-
             }
         }
+//_________________________________________________________________________________
     }
 }

@@ -323,9 +323,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Map: {fileID: 0}
   Unit: {fileID: 1274307641430100, guid: 047c4eec5ef09d148a641b673c91a247, type: 2}
+  thisUnit: {fileID: 0}
+  col: 0
+  row: 0
   height: 0
   geography: 
   desc: 
+  blockID: 0
   mats:
   - {fileID: 2100000, guid: 0385093af8ddead43b73b9d496bb0f9c, type: 2}
   - {fileID: 2100000, guid: e0a6af15c297c6c4d831f836d04bafc9, type: 2}
@@ -341,4 +345,9 @@ MonoBehaviour:
   - {fileID: 2100000, guid: e6b9fca5fc741c74d80780a83cb398f1, type: 2}
   - {fileID: 2100000, guid: 318fe395195eb384b9fd399537ba9098, type: 2}
   - {fileID: 2100000, guid: 0173f7ba1b7f0ea4089e138e733ab371, type: 2}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: cd3afc57706faf04e90d6790e12960e2, type: 2}
+  - {fileID: 2100000, guid: d82f8dfd5f8141b4294a4e45cebaa6dd, type: 2}
+  - {fileID: 2100000, guid: a69e1299c82a8e241ac9a44a538d9044, type: 2}
+  isSelected: 0
+  unitOnNode: 
+  movableArea: 0

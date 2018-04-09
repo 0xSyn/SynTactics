@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4608598055794434}
   - component: {fileID: 114568518467785296}
+  - component: {fileID: 114363110115956964}
+  - component: {fileID: 54148606489499672}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -50,13 +52,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1892214802039394}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4608598055794434}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!4 &4608598055794434
 Transform:
   m_ObjectHideFlags: 1
@@ -71,6 +73,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54148606489499672
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274307641430100}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95335017423437538
 Animator:
   serializedVersion: 3
@@ -88,6 +105,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114363110115956964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274307641430100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c4f651e28bfa0947988504e6cedf3f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114568518467785296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,7 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1795bd0fbba0643bb3d5e8cb7a2175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveRange: 5
 --- !u!212 &212805264955919886
 SpriteRenderer:
   m_ObjectHideFlags: 1
