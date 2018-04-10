@@ -297,6 +297,7 @@
     <Compile Include="Assets\Scripts\hex\MouseManager.cs" />
     <Compile Include="Assets\Scripts\hex\PlayerController.cs" />
     <Compile Include="Assets\Scripts\NodeData.cs" />
+    <Compile Include="Assets\Scripts\UI_manager.cs" />
     <Compile Include="Assets\Scripts\UnitData.cs" />
     <Compile Include="Assets\Scripts\UnitMovement.cs" />
   </ItemGroup>

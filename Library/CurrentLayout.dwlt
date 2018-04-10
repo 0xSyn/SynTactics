@@ -124,7 +124,7 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 342}
   m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
-  controlID: 97
+  controlID: 123
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 471}
   m_MaxSize: {x: 10002, y: 14021}
   vertical: 1
-  controlID: 28
+  controlID: 99
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 471}
   m_MaxSize: {x: 18008, y: 14021}
   vertical: 0
-  controlID: 96
+  controlID: 122
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -459,10 +459,10 @@ MonoBehaviour:
     height: 382
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: 16faffff00000000
+    scrollPos: {x: 0, y: 3}
+    m_SelectedIDs: 902a0000
+    m_LastClickedID: 10896
+    m_ExpandedIDs: 9efbffff000000000c2a0000482a0000b02a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -558,19 +558,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Resources/Materials
+    - Assets/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Materials
+  - Assets/Prefabs
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Projects\Unity\SynTactics
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 822a0000
-    m_LastClickedID: 10882
-    m_ExpandedIDs: 00000000662900006e290000f6290000082a00000e2a0000822a0000da2b0000dc2b0000de2b0000e02b000000ca9a3bffffff7f
+    m_SelectedIDs: a6280000
+    m_LastClickedID: 10406
+    m_ExpandedIDs: 00000000ae2700008e280000a8280000362900005a2b00005c2b00005e2b0000602b0000622b0000642b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -598,7 +598,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000662900006e290000f62900000e2a0000822a0000b82a0000da2b0000dc2b0000de2b0000e02b0000
+    m_ExpandedIDs: 00000000ae2700008e280000a8280000362900005a2b00005c2b00005e2b0000602b0000622b0000642b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -629,18 +629,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 30260000282600006887ffffcca0f9ff786af9ff8826000060340000702a0000a8270000ac65000012660000b064000030290000542e0000762e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: UI_manager
+      m_OriginalName: UI_manager
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 11344
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 6}
     m_CreateAssetUtility:
@@ -758,14 +758,14 @@ MonoBehaviour:
     height: 735
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 7550.892831892951
+  lastFramingTime: 57.2011430437277
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 9.08258, y: 2.9875865, z: 9.457121}
+    m_Target: {x: -1.2814889, y: 6.3902245, z: -4.6471167}
     speed: 2
-    m_Value: {x: 9.08258, y: 2.9875865, z: 9.457121}
+    m_Value: {x: -1.2814889, y: 6.3902245, z: -4.6471167}
   m_RenderMode: 2
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -789,19 +789,19 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.29527217, y: -0.16902213, z: 0.05261435, w: -0.9388704}
+    m_Target: {x: 0.089968845, y: 0.02788837, z: -0.0020085657, w: 0.99555206}
     speed: 2
-    m_Value: {x: -0.29527217, y: -0.16902213, z: 0.05261435, w: -0.9388704}
+    m_Value: {x: 0.089968845, y: 0.02788837, z: -0.0020085657, w: 0.99555206}
   m_Size:
-    m_Target: 8.573651
+    m_Target: 9.371315
     speed: 2
-    m_Value: 8.573651
+    m_Value: 9.371315
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_ShowGlobalGrid: 1
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+  m_LastSceneViewRotation: {x: -0.07481145, y: 0.008397654, z: 0.001140918, w: 0.9971617}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
