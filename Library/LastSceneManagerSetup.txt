@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Maps/Main.unity
+- path: Assets/Maps/LevelEditor.unity
   isLoaded: 1
   isActive: 1
