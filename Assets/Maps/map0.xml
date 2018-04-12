@@ -379,6 +379,7 @@
         <GeoType>grass</GeoType>
         <Height>0</Height>
         <Desc>"the water... its wet!"</Desc>
+        <Unit>enemy</Unit>
       </Block>
 
       <Block name="3_3">

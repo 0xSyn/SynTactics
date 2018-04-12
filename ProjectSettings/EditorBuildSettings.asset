@@ -7,3 +7,13 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/_CompletedAssets/Scenes/Level 01 5.x.unity
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Maps/Main.unity
+    guid: aa731a39adcb144478b65a7e79cc6103
+  - enabled: 1
+    path: Assets/Maps/Grids.unity
+    guid: 38802f0cb3c446f4d8d9d2b9905c1821
+  - enabled: 1
+    path: Assets/Maps/LevelEditor.unity
+    guid: 90dfbcdeb86533e458b0d1aa59705473

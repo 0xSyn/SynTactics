@@ -179,14 +179,8 @@ namespace Assets.Scripts {
 
 
 
-
-
-
-
-
-
-
         public void Initialize(int id, string geo, float h, string desc, string unit) {
+            SetMesh();
             blockID = id;
             height = h;
             geography = geo;
@@ -194,6 +188,10 @@ namespace Assets.Scripts {
             unitOnNode = unit;
             SetTexture();
             if (unitOnNode == "ally") {
+                thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
+                //Debug.Log(" range " + thisUnit.GetComponent<UnitData>().GetMoveRange());
+            }
+            if (unitOnNode == "enemy") {
                 thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
                 //Debug.Log(" range " + thisUnit.GetComponent<UnitData>().GetMoveRange());
             }
@@ -211,6 +209,17 @@ namespace Assets.Scripts {
 
 
 
+        //public Mesh[] meshAry;
+        public MeshFilter[] meshAry;
+
+        private void SetMesh() {
+
+
+            MeshFilter meshF = transform.GetChild(0).GetComponent<MeshFilter>();
+            meshF.mesh = meshAry[0].sharedMesh;
+            transform.GetChild(1).GetComponent<Renderer>().enabled = false;
+            
+        }
 
 
 
@@ -250,9 +259,18 @@ namespace Assets.Scripts {
 
             }
 
+            
+            Material[] _m = transform.GetChild(0).GetComponent<MeshRenderer>().materials;
+            _m[0] = mats[mat_base];//bottom
+            _m[1] = mats[mat_tile];//top
+            _m[2] = mats[mat_base];//back
+            _m[3] = mats[mat_base];//right
+            _m[4] = mats[mat_base];//front
+            _m[5] = mats[mat_base];//left
 
-            transform.GetChild(0).GetComponent<Renderer>().material = mats[mat_base];
-            transform.GetChild(1).GetComponent<Renderer>().material = mats[mat_tile];
+
+            transform.GetChild(0).GetComponent<Renderer>().materials = _m;
         }
     }
 }
+ 
