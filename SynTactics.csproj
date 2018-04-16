@@ -290,14 +290,15 @@
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\BoardPathing.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Editor.cs" />
+    <Compile Include="Assets\Scripts\Editor_Node.cs" />
+    <Compile Include="Assets\Scripts\Editor_UI.cs" />
     <Compile Include="Assets\Scripts\hex\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\hex\Hex.cs" />
     <Compile Include="Assets\Scripts\hex\HexLoad.cs" />
     <Compile Include="Assets\Scripts\hex\HexMap.cs" />
     <Compile Include="Assets\Scripts\hex\MouseManager.cs" />
     <Compile Include="Assets\Scripts\hex\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\LevelEditor.cs" />
-    <Compile Include="Assets\Scripts\LevelEditor_UI.cs" />
     <Compile Include="Assets\Scripts\MainMenuUI.cs" />
     <Compile Include="Assets\Scripts\NodeData.cs" />
     <Compile Include="Assets\Scripts\UI_manager.cs" />
