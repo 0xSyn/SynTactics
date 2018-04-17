@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts;
 using UnityEngine;
+using System.IO;
 
 public class Editor : MonoBehaviour {
     public GameObject Block;
@@ -27,6 +28,7 @@ public class Editor : MonoBehaviour {
     public void SelectNode(int x, int y) {
         _selectedNode = _board[x, y];
         _UI.SetPanel_Node();
+        _UI.SetNodeID(x, y);
     }
 
 
@@ -36,6 +38,35 @@ public class Editor : MonoBehaviour {
     }
 
 
+
+
+    public void ExportXML(string title) {
+
+
+
+
+        string output = "<Map0> \n   <col>"+ _board.Length+"</col> \n   <row>"+_board.Length+"</row>\n";
+
+
+
+
+        for (int x = 0; x < _board.GetLength(0)-1;x++){
+            for (int y = 0; y < _board.GetLength(1)-1; y++) {
+                output += "   <Block name = \"" + x + "_" + y+"\"" + ">\n";
+                output += "      <GeoType>"+"grass"+"</GeoType>\n";
+                output += "      <Height>"+ _board[x, y].transform.position.y + "</Height>\n";//
+                output += "      <Desc>"+"desc"+"</Desc>\n";
+                output += "   </Block>\n";
+            }
+        }
+
+        output += "</Map>";
+        File.WriteAllText(title+".xml", output);
+        Debug.Log("FILE SAVED");
+        //File.WriteAllText("hi.txt", "ds");
+
+
+    }
 
 
 

@@ -11,6 +11,7 @@ public class Editor_UI : MonoBehaviour {
     public InputField in_title;
     public GameObject panelBoard;
     public GameObject panelNode;
+    public Text txt_nodeId;
     public GameObject panelUnit;
 
     void Start() {
@@ -38,6 +39,16 @@ public class Editor_UI : MonoBehaviour {
     }
     public void BTN_LowerNode() {
         _editor.AdjustNodeHeight(-.25f);
+    }
+
+    public void SetNodeID(int x,int y) {
+        txt_nodeId.text="Node ID: "+x+"_"+y;
+    }
+
+
+
+    public void BTN_Save() {
+        _editor.ExportXML(in_title.text);
     }
 
 }
