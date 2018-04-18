@@ -50,5 +50,8 @@ public class Editor_UI : MonoBehaviour {
     public void BTN_Save() {
         _editor.ExportXML(in_title.text);
     }
+    public void BTN_Load() {
+        _editor.ImportXML(in_title.text);
+    }
 
 }

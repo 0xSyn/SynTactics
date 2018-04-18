@@ -1,19 +1,19 @@
-<Map0> 
-   <col>100</col> 
-   <row>100</row>
+<Map> 
+   <col>10</col> 
+   <row>10</row>
    <Block name = "0_0">
       <GeoType>grass</GeoType>
-      <Height>0</Height>
+      <Height>-0.75</Height>
       <Desc>desc</Desc>
    </Block>
    <Block name = "0_1">
       <GeoType>grass</GeoType>
-      <Height>0</Height>
+      <Height>-0.5</Height>
       <Desc>desc</Desc>
    </Block>
    <Block name = "0_2">
       <GeoType>grass</GeoType>
-      <Height>0</Height>
+      <Height>-0.25</Height>
       <Desc>desc</Desc>
    </Block>
    <Block name = "0_3">
@@ -42,6 +42,11 @@
       <Desc>desc</Desc>
    </Block>
    <Block name = "0_8">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "0_9">
       <GeoType>grass</GeoType>
       <Height>0</Height>
       <Desc>desc</Desc>
@@ -91,6 +96,11 @@
       <Height>0</Height>
       <Desc>desc</Desc>
    </Block>
+   <Block name = "1_9">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
    <Block name = "2_0">
       <GeoType>grass</GeoType>
       <Height>0</Height>
@@ -132,6 +142,11 @@
       <Desc>desc</Desc>
    </Block>
    <Block name = "2_8">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "2_9">
       <GeoType>grass</GeoType>
       <Height>0</Height>
       <Desc>desc</Desc>
@@ -181,6 +196,11 @@
       <Height>0</Height>
       <Desc>desc</Desc>
    </Block>
+   <Block name = "3_9">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
    <Block name = "4_0">
       <GeoType>grass</GeoType>
       <Height>0</Height>
@@ -222,6 +242,11 @@
       <Desc>desc</Desc>
    </Block>
    <Block name = "4_8">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "4_9">
       <GeoType>grass</GeoType>
       <Height>0</Height>
       <Desc>desc</Desc>
@@ -271,6 +296,11 @@
       <Height>0</Height>
       <Desc>desc</Desc>
    </Block>
+   <Block name = "5_9">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
    <Block name = "6_0">
       <GeoType>grass</GeoType>
       <Height>0</Height>
@@ -312,6 +342,11 @@
       <Desc>desc</Desc>
    </Block>
    <Block name = "6_8">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "6_9">
       <GeoType>grass</GeoType>
       <Height>0</Height>
       <Desc>desc</Desc>
@@ -361,6 +396,11 @@
       <Height>0</Height>
       <Desc>desc</Desc>
    </Block>
+   <Block name = "7_9">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
    <Block name = "8_0">
       <GeoType>grass</GeoType>
       <Height>0</Height>
@@ -402,6 +442,61 @@
       <Desc>desc</Desc>
    </Block>
    <Block name = "8_8">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "8_9">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_0">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_1">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_2">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_3">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_4">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_5">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_6">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_7">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_8">
+      <GeoType>grass</GeoType>
+      <Height>0</Height>
+      <Desc>desc</Desc>
+   </Block>
+   <Block name = "9_9">
       <GeoType>grass</GeoType>
       <Height>0</Height>
       <Desc>desc</Desc>
