@@ -56,9 +56,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapWidth: 0
   _mapHeight: 0
-  UI: {fileID: 0}
-  UI_ally: {fileID: 0}
-  UI_selected: {fileID: 0}
 --- !u!114 &114641083917334960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,3 +92,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dddb14c1089c1e4884d904a3f67dd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UI_ActionMenu: {fileID: 0}
+  UI_UnitData: {fileID: 0}

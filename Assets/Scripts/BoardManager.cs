@@ -1,6 +1,7 @@
 ﻿using System.Xml.Linq;
 using UnityEngine;
-
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 namespace Assets.Scripts {
     public class BoardManager : MonoBehaviour {
 
@@ -10,20 +11,26 @@ namespace Assets.Scripts {
 
         private BoardPathing _path;
         private UI_manager _UI;
+        private UnitLoader _unitLoader;
         private GameObject _blockSelected;
         private GameObject _blockSelected2;
         private GameObject _blockHovered;
         private GameObject[] blockSubset=new GameObject[100];
         private int blockSubset_pointer;
         private bool _movementMode;
+        //public GameObject Unit;
+
 
         void Start() {
             _path = GetComponent<BoardPathing>();
             _UI = GetComponent<UI_manager>();
+            
         }
-
-        void Update() {
-            if(Input.GetMouseButtonDown(1)){///RMB
+        
+        //[Command]
+        //void CmdUpdate() {
+            void Update() {
+                if (Input.GetMouseButtonDown(1)){///RMB
                 if (_path.PathSize() > 1) {
                     _path.RemovePartialPath(1);
                 }
@@ -35,6 +42,17 @@ namespace Assets.Scripts {
                 }
             }
             if (Input.GetMouseButtonDown(2)) {//MMB
+               SceneManager.LoadScene("Maps/Main");
+            }
+            if (Input.GetKeyDown(KeyCode.U)) {//MMB
+                for (int col = 0; col < _mapWidth; col++) {
+                    for (int row = 0; row < _mapHeight; row++) {
+                        if (_map[col, row].GetComponent<NodeData>().unitOnNode == "ally") {
+                            _unitLoader = GameObject.Find("Manager").GetComponent<UnitLoader>();
+                            _unitLoader.CmdCreateUnits(_map[col,row], _mapWidth, _mapHeight);
+                        }
+                    }
+                }
             }
         }
 

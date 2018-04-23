@@ -2,23 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using System.Xml;
 using System.Xml.Serialization;
-using Assets.Scripts;
+using UnityEngine.Networking;
+
 
 namespace Assets.Scripts {
-
-
     public class NodeData : MonoBehaviour {
-
-        //[XmlAttribute("name")]
         public GameObject Map;
         public GameObject Unit;
         public GameObject thisUnit;
         private BoardManager _boardManager;
-        private BoardPathing _path;
         public int col;
         public int row;
         public float height = 20;
@@ -32,16 +27,15 @@ namespace Assets.Scripts {
         private bool isHovered;
         private bool _isSelectedForMove;
         public bool isSelected;
-        //private GameObject
         public string unitOnNode;
         public bool movableArea;
         private Renderer _nodeHighlight;
 
         void Start() {
             transform.GetChild(2).GetComponent<Renderer>().enabled = false;
-            Map = GameObject.Find("Map");
+            //Map = GameObject.Find("Map");
             _boardManager = GameObject.Find("Map").GetComponent<BoardManager>();
-            _path = GetComponent<BoardPathing>();
+            //_path = GetComponent<BoardPathing>();
             _nodeHighlight = transform.GetChild(2).GetComponent<Renderer>();
         }
 
@@ -133,7 +127,6 @@ namespace Assets.Scripts {
 
 
         public void SetNode_Last(bool b) {
-            //Debug.Log("SDADKLSAJD");
             if (b) {
                 _isSelectedForMove = true;
                 _nodeHighlight.material = mats_selector[5];
@@ -178,7 +171,8 @@ namespace Assets.Scripts {
 
 
 
-
+        //[Command]
+        //public void CmdInitialize(int id, string geo, float h, string desc, string unit) {
         public void Initialize(int id, string geo, float h, string desc, string unit) {
             SetMesh();
             blockID = id;
@@ -188,18 +182,28 @@ namespace Assets.Scripts {
             unitOnNode = unit;
             SetTexture();
             if (unitOnNode == "ally") {
-                thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
-                //Debug.Log(" range " + thisUnit.GetComponent<UnitData>().GetMoveRange());
+                //thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
+                //NetworkServer.Spawn(thisUnit);
+                //if (NetworkServer.active) {
+                //CmdCreateUnit();
+                    //Debug.Log("Created On Server");
+                //}
+
+                //thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
+                //NetworkServer.Spawn(thisUnit);
+                
             }
             if (unitOnNode == "enemy") {
-                thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
-                //Debug.Log(" range " + thisUnit.GetComponent<UnitData>().GetMoveRange());
+                //thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
             }
 
         }
 
-
-
+        //[Command]
+        //void CmdCreateUnit() {
+            
+            //NetworkServer.Spawn(thisUnit);
+        //}
 
 
 

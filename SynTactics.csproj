@@ -301,8 +301,10 @@
     <Compile Include="Assets\Scripts\hex\PlayerController.cs" />
     <Compile Include="Assets\Scripts\MainMenuUI.cs" />
     <Compile Include="Assets\Scripts\NodeData.cs" />
+    <Compile Include="Assets\Scripts\PlayerCont.cs" />
     <Compile Include="Assets\Scripts\UI_manager.cs" />
     <Compile Include="Assets\Scripts\UnitData.cs" />
+    <Compile Include="Assets\Scripts\UnitLoader.cs" />
     <Compile Include="Assets\Scripts\UnitMovement.cs" />
   </ItemGroup>
   <ItemGroup>

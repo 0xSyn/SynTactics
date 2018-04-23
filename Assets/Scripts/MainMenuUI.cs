@@ -20,7 +20,7 @@ public class MainMenuUI : MonoBehaviour {
 
     }
     public void BTN_LoadMap() {
-        loadlevel("Maps/Grids");
+        loadlevel("Maps/OfflineMap");
     }
     public void BTN_LevelEditor() {
         loadlevel("Maps/LevelEditor");

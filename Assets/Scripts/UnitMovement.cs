@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Networking;
 public class UnitMovement : MonoBehaviour {
     private Rigidbody rb;
 	
@@ -11,8 +11,9 @@ public class UnitMovement : MonoBehaviour {
 
     public void Move(Vector3[] nodes) {
         StartCoroutine(SmoothMovement(nodes));
+       
     }
-
+    
 
 
     protected IEnumerator SmoothMovement(Vector3[] nodes) {

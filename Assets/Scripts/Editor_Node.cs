@@ -2,15 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.IMGUI.Controls;
+//using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using System.Xml;
 using System.Xml.Serialization;
-using Assets.Scripts;
 
+
+//using Assets.Scripts;
 namespace Assets.Scripts {
-
-
     public class Editor_Node : MonoBehaviour {
 
         public MeshFilter[] meshAry;

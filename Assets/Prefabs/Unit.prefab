@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 114568518467785296}
   - component: {fileID: 114363110115956964}
   - component: {fileID: 54148606489499672}
+  - component: {fileID: 114190594496763168}
+  - component: {fileID: 114964806373344528}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -105,6 +107,38 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114190594496763168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274307641430100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 4
+    i1: 124
+    i2: 78
+    i3: 236
+    i4: 94
+    i5: 240
+    i6: 157
+    i7: 20
+    i8: 138
+    i9: 100
+    i10: 27
+    i11: 103
+    i12: 60
+    i13: 145
+    i14: 162
+    i15: 71
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114363110115956964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,6 +161,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e1795bd0fbba0643bb3d5e8cb7a2175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114964806373344528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1274307641430100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!212 &212805264955919886
 SpriteRenderer:
   m_ObjectHideFlags: 1
