@@ -33,9 +33,7 @@ namespace Assets.Scripts {
 
         void Start() {
             transform.GetChild(2).GetComponent<Renderer>().enabled = false;
-            //Map = GameObject.Find("Map");
             _boardManager = GameObject.Find("Map").GetComponent<BoardManager>();
-            //_path = GetComponent<BoardPathing>();
             _nodeHighlight = transform.GetChild(2).GetComponent<Renderer>();
         }
 
@@ -50,7 +48,7 @@ namespace Assets.Scripts {
                         Debug.Log("makinMoviez");
                         _boardManager.MoveUnit();
                     }
-                    else if (_boardManager.isMovementModeActive()) {
+                    else if (_boardManager.GetMode()==1) {//Movement Mode
                         _boardManager.AddToPath(blockID);
                     } 
                     else {
@@ -66,6 +64,10 @@ namespace Assets.Scripts {
 
                 case "enemy":
                     Debug.Log("Enemy Unit");
+                    if (_boardManager.GetMode() == 2) {// Attack Mode
+                        _boardManager.Attack(gameObject);
+                        //thisUnit.GetComponent<UnitMovement>().AnimAttack();
+                    }
                     break;
 
                 default:
@@ -93,6 +95,7 @@ namespace Assets.Scripts {
                         break;
                     case "ally":
                         _nodeHighlight.material = mats_selector[1];
+                        _boardManager.GetComponent<UI_manager>().SetUnitDataVisible(thisUnit.GetComponent<UnitData>());
                         break;
                     case "enemy":
                         _nodeHighlight.material = mats_selector[2];
@@ -182,19 +185,15 @@ namespace Assets.Scripts {
             unitOnNode = unit;
             SetTexture();
             if (unitOnNode == "ally") {
-                //thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
-                //NetworkServer.Spawn(thisUnit);
-                //if (NetworkServer.active) {
-                //CmdCreateUnit();
-                    //Debug.Log("Created On Server");
-                //}
+                thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
+                thisUnit.GetComponent<UnitData>().SetTeam(0);
+  
 
-                //thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
-                //NetworkServer.Spawn(thisUnit);
-                
             }
             if (unitOnNode == "enemy") {
-                //thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
+                thisUnit = Instantiate(Unit, new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z), Quaternion.identity, transform);
+                thisUnit.GetComponent<UnitData>().SetTeam(1);
+
             }
 
         }
@@ -247,7 +246,7 @@ namespace Assets.Scripts {
                     break;
                 case "rock":
                     mat_tile = 3;
-                    mat_base = 3;
+                    mat_base = 7;
                     break;
                 case "red":
                     mat_tile = 3;

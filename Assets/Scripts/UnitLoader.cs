@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Assets.Scripts;
 
-public class UnitLoader : NetworkBehaviour {
+public class UnitLoader : MonoBehaviour {
     public GameObject Unit;
 
-    [Command]
-    public void CmdCreateUnits(GameObject node, int _mapHeight, int _mapWidth) {
+    //[Command]
+    public void CreateUnits(GameObject node, int _mapHeight, int _mapWidth) {
         Debug.Log("Creating Unit");
         if (node.GetComponent<NodeData>().unitOnNode == "ally") {
             Vector3 pos = node.transform.position;
             node.GetComponent<NodeData>().thisUnit = Instantiate(Unit, new Vector3(pos.x, pos.y + 2.5f, pos.z), Quaternion.identity, transform);
-            NetworkServer.Spawn(node.GetComponent<NodeData>().thisUnit);
+            //NetworkServer.Spawn(node.GetComponent<NodeData>().thisUnit);
             //NetworkServer.SpawnWithClientAuthority(node.GetComponent<NodeData>().thisUnit, connectionToClient);
         }
 

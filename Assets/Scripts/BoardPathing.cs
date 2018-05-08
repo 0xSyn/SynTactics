@@ -117,13 +117,13 @@ namespace Assets.Scripts {
             _path[0].GetComponent<NodeData>().unitOnNode = "none";
             _path[_path.Count - 1].GetComponent<NodeData>().unitOnNode = "ally";
             _path[_path.Count - 1].GetComponent<NodeData>().thisUnit = _path[0].GetComponent<NodeData>().thisUnit;
-            //_path[0].GetComponent<NodeData>().thisUnit=null;
-            _path[_path.Count - 1].GetComponent<NodeData>().thisUnit.GetComponent<UnitData>().TurnReset();
+            //_path[_path.Count - 1].GetComponent<NodeData>().thisUnit.GetComponent<UnitData>().TurnReset();
             Vector3[] paths=new Vector3[_path.Count];
             for (int i = 0; i < _path.Count; i++) {
                 paths[i] = _path[i].transform.position;
             }
             _path[0].GetComponent<NodeData>().thisUnit.GetComponent<UnitMovement>().Move(paths);
+            _path[0].GetComponent<NodeData>().thisUnit = null;
             RemoveAllPathNodes();
             RemoveAllPathLines();
             ClearBlockSubset();
@@ -136,7 +136,7 @@ namespace Assets.Scripts {
             else {
                 AddNodes(_path[_path.Count - 1], node);
                 _path[0].GetComponent<NodeData>().thisUnit.GetComponent<UnitData>().SetMoveRange(
-                    _path[0].GetComponent<NodeData>().thisUnit.GetComponent<UnitData>().GetMoveRangeTotal() -
+                    _path[0].GetComponent<NodeData>().thisUnit.GetComponent<UnitData>().GetMoveRange() -
                     (_path.Count - 1));
                 DrawPathLines();
             }
@@ -146,7 +146,48 @@ namespace Assets.Scripts {
         }
 
 
-
+        public void AI_path_simple(GameObject start, GameObject finish) {
+            Debug.Log("hello");
+            RemoveAllPathNodes();
+            _path.Add(start);
+            int destCol = finish.GetComponent<NodeData>().col;
+            int destRow = finish.GetComponent<NodeData>().row;
+            int curCol = _path[_path.Count - 1].GetComponent<NodeData>().col;
+            int curRow = _path[_path.Count - 1].GetComponent<NodeData>().row;
+            //while (curCol + 1 != destCol && curCol - 1 != destCol && curRow + 1 != destRow && curRow - 1 != destRow) {
+                while ((curCol + 1 != destCol || curRow != destRow) && (curCol - 1 != destCol || curRow != destRow) && (curRow + 1 != destRow || curCol != destCol) && (curRow - 1 != destRow || curCol != destCol)) {
+                if (Mathf.Abs((curCol+1)-destCol)< Mathf.Abs(curCol - destCol)) {//right
+                    _path.Add(_boardManager._map[curCol + 1, curRow]);
+                    curCol += 1;
+                }
+                else if (Mathf.Abs((curCol - 1) - destCol) < Mathf.Abs(curCol - destCol)) {//left
+                    _path.Add(_boardManager._map[curCol - 1, curRow]);
+                    curCol -= 1;
+                } 
+                else if (Mathf.Abs((curRow + 1) - destRow) < Mathf.Abs(curRow - destRow)) {//up
+                    _path.Add(_boardManager._map[curCol, curRow+1]);
+                    curRow += 1;
+                } 
+                else if (Mathf.Abs((curRow - 1) - destRow) < Mathf.Abs(curRow - destRow)) {//down
+                    _path.Add(_boardManager._map[curCol, curRow - 1]);
+                    curRow -= 1;
+                }
+                _path[_path.Count - 1].GetComponent<NodeData>().SetMovable(true);
+            }
+            Vector3[] nodePos=new Vector3[_path.Count];
+            for(int i=0;i<nodePos.Length;i++) {
+                nodePos[i] = _path[i].transform.position;
+                Debug.Log("NODES?");
+            }
+            //DrawPathLines();
+            _path[0].GetComponent<NodeData>().thisUnit.GetComponent<UnitMovement>().Move(nodePos);
+            _path[_path.Count - 1].GetComponent<NodeData>().thisUnit = _path[0].GetComponent<NodeData>().thisUnit;
+           
+            _path[_path.Count - 1].GetComponent<NodeData>().unitOnNode = "enemy";
+            _path[0].GetComponent<NodeData>().unitOnNode = "none";
+            _path[0].GetComponent<NodeData>().thisUnit = null;
+            RemoveAllPathNodes();
+        }
 
 
 
@@ -159,6 +200,11 @@ namespace Assets.Scripts {
             int row = node.GetComponent<NodeData>().row;
             int range = _path[0].GetComponent<NodeData>().thisUnit.GetComponent<UnitData>().GetMoveRange();
             int rangeDec = range + 1;
+
+            if (_boardManager.mode == 2) {
+                range = _path[0].GetComponent<NodeData>().thisUnit.GetComponent<UnitData>().GetAttackRange();
+                rangeDec = range + 1;
+            }
             for (int x = 1; x < range + 1; x++) {
                 rangeDec--;
                 if (col - x > -1) { //left

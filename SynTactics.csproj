@@ -286,21 +286,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Resources\Animations\PlayerAnim.cs" />
+    <Compile Include="Assets\Scripts\ActionEffects.cs" />
+    <Compile Include="Assets\Scripts\AI_Controller.cs" />
     <Compile Include="Assets\Scripts\BoardLoader.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\BoardPathing.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Editor.cs" />
-    <Compile Include="Assets\Scripts\Editor_Node.cs" />
-    <Compile Include="Assets\Scripts\Editor_UI.cs" />
     <Compile Include="Assets\Scripts\hex\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\hex\Hex.cs" />
     <Compile Include="Assets\Scripts\hex\HexLoad.cs" />
     <Compile Include="Assets\Scripts\hex\HexMap.cs" />
     <Compile Include="Assets\Scripts\hex\MouseManager.cs" />
     <Compile Include="Assets\Scripts\hex\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\MainMenuUI.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\MainMenuUI.cs" />
     <Compile Include="Assets\Scripts\NodeData.cs" />
+    <Compile Include="Assets\Scripts\Persistant.cs" />
     <Compile Include="Assets\Scripts\PlayerCont.cs" />
     <Compile Include="Assets\Scripts\UI_manager.cs" />
     <Compile Include="Assets\Scripts\UnitData.cs" />
@@ -310,6 +310,7 @@
   <ItemGroup>
     <None Include="Assets\Maps\NewMap.xml" />
     <None Include="Assets\Maps\map0.xml" />
+    <None Include="Assets\Resources\BGs\Skyboxes\envmap_interstellar\README.TXT" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -326,11 +326,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 0385093af8ddead43b73b9d496bb0f9c, type: 2}
   - {fileID: 2100000, guid: e0a6af15c297c6c4d831f836d04bafc9, type: 2}
   - {fileID: 2100000, guid: 6b5c4a30a4c63384b8f796eb7c875130, type: 2}
-  - {fileID: 2100000, guid: c9d18443d94685043844f320190d5d8a, type: 2}
+  - {fileID: 2100000, guid: 92359e3503426984eaa2d7859539ac0b, type: 2}
   - {fileID: 2100000, guid: f94be56563890844db0d839d101f10fd, type: 2}
   - {fileID: 2100000, guid: f6322afbe8172d4498815d444b8aa554, type: 2}
   - {fileID: 2100000, guid: 6a36ccbc9cfceb0438d518e45713195f, type: 2}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 53e4279f196e1544dbd6eb983e7aa927, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   mats_selector:
